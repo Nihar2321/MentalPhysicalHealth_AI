@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Impact on Physical Health</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2d3a3a;
+            background: linear-gradient(135deg, #eaf6f6 0%, #f7fafc 100%);
+            overflow-x: hidden;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 220px;
+            height: 100vh;
+            background: linear-gradient(135deg, #b8e0d2, #a7c7c5);
+            color: #2d3a3a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 2rem;
+            z-index: 1000;
+            box-shadow: 2px 0 20px rgba(80, 120, 120, 0.08);
+        }
+        .sidebar .logo {
+            font-size: 1.7rem;
+            font-weight: bold;
+            margin-bottom: 2.5rem;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+        }
+        .sidebar .logo::before {
+            content: "🧘";
+            margin-right: 0.5rem;
+        }
+        .sidebar .nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            width: 100%;
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar .nav-links li {
+            width: 100%;
+        }
+        .sidebar .nav-links a {
+            color: #2d3a3a;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 1rem 2rem;
+            display: block;
+            border-radius: 30px 0 0 30px;
+            transition: background 0.2s, color 0.2s;
+        }
+        .sidebar .nav-links a:hover, .sidebar .nav-links a.active {
+            background: #eaf6f6;
+            color: #388087;
+        }
+        /* Main content shift */
+        .main-content {
+            margin-left: 220px;
+        }
+        @media (max-width: 900px) {
+            .sidebar {
+                width: 60px;
+                padding-top: 1rem;
+            }
+            .sidebar .logo {
+                font-size: 1.2rem;
+                margin-bottom: 1.5rem;
+            }
+            .sidebar .nav-links a {
+                padding: 0.7rem 1rem;
+                font-size: 0.95rem;
+            }
+            .main-content {
+                margin-left: 60px;
+            }
+        }
+        /* Remove old header styles */
+        header, nav {
+            display: none !important;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #5f65d3, #a084e8, #cdb4f6);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(80, 80, 160, 0.15);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(95, 101, 211, 0.95);
+            backdrop-filter: blur(20px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            letter-spacing: 1px;
+        }
+
+        .logo::before {
+            content: "🧘";
+            margin-right: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #ffe5ec;
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 80px;
+        }
+
+        .section {
+            padding: 4rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #eaf6f6 0%, #b8e0d2 50%, #f7fafc 100%);
+            text-align: center;
+            padding: 6rem 2rem;
+            margin-top: -80px;
+            padding-top: 10rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(56,128,135,0.08)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.15;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            margin-bottom: 1rem;
+            color: #388087;
+            animation: fadeInUp 1s ease-out;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(56,128,135,0.06);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            color: #2d3a3a;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 300;
+        }
+
+        .tagline {
+            font-style: italic;
+            color: #6fb3b8;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #388087, #6fb3b8);
+            color: white;
+            padding: 1.1rem 2.3rem;
+            text-decoration: none;
+            border-radius: 40px;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            margin: 0 1rem;
+            box-shadow: 0 4px 15px rgba(56,128,135,0.10);
+            position: relative;
+            overflow: hidden;
+            border: none;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(56,128,135,0.18);
+        }
+
+        .cta-secondary {
+            background: transparent;
+            border: 2px solid #6fb3b8;
+            color: #388087;
+        }
+
+        .cta-secondary:hover {
+            background: #6fb3b8;
+            color: white;
+        }
+
+        /* Problem Section */
+        .problem {
+            background: #f7fafc;
+        }
+
+        .problem h2 {
+            color: #388087;
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+        }
+
+        .health-risks {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .risk-card {
+            background: linear-gradient(135deg, #eaf6f6, #b8e0d2);
+            padding: 2.2rem;
+            border-radius: 15px;
+            text-align: center;
+            border-left: 5px solid #388087;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .risk-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #388087, #6fb3b8, #388087);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .risk-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .risk-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(56,128,135,0.10);
+        }
+
+        .risk-card h3 {
+            color: #388087;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .risk-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .sdg-badge {
+            background: #6fb3b8;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 2rem;
+        }
+
+        /* Solution Section */
+        .solution {
+            background: linear-gradient(135deg, #eaf6f6, #f7fafc);
+        }
+
+        .solution h2 {
+            color: #388087;
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+        }
+
+        .solution-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #ffffff, #eaf6f6);
+            padding: 2.2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(56,128,135,0.06);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(56,128,135,0.06);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(56,128,135,0.04), rgba(56,128,135,0.08));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(56,128,135,0.10);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            background: #fff;
+        }
+
+        .how-it-works h2 {
+            color: #388087;
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+        }
+
+        .workflow {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+            padding: 2rem;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #ffffff, #eaf6f6);
+            box-shadow: 0 5px 15px rgba(56,128,135,0.06);
+            transition: all 0.3s ease;
+        }
+
+        .step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(56,128,135,0.10);
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, #6fb3b8, #388087);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+            box-shadow: 0 5px 15px rgba(56,128,135,0.10);
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-number::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: linear-gradient(135deg, #388087, #6fb3b8);
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .step:hover .step-number::before {
+            opacity: 1;
+        }
+
+        .step-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Impact Section */
+        .impact {
+            background: linear-gradient(135deg, #f7fafc, #eaf6f6);
+        }
+
+        .impact h2 {
+            color: #388087;
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .impact-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(56,128,135,0.06);
+        }
+
+        .impact-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Future Scope Section */
+        .future-scope {
+            background: #fff;
+        }
+
+        .future-scope h2 {
+            color: #388087;
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+        }
+
+        .future-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .future-card {
+            background: #eaf6f6;
+            padding: 2rem;
+            border-radius: 10px;
+            border-left: 4px solid #388087;
+        }
+
+        /* Get Involved Section */
+        .get-involved {
+            background: linear-gradient(135deg, #b8e0d2, #6fb3b8);
+            color: #2d3a3a;
+            text-align: center;
+        }
+
+        .get-involved h2 {
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+        }
+
+        .involvement-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .option-card {
+            background: rgba(255,255,255,0.13);
+            padding: 2rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.13);
+            padding: 2rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255,255,255,0.9);
+            color: #2d3a3a;
+        }
+
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: #388087;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #6fb3b8;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background: #a7c7c5;
+            color: #2d3a3a;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .slide-in-left {
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        .slide-in-right {
+            animation: slideInRight 0.8s ease-out;
+        }
+
+        .pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .cta-button {
+                display: block;
+                margin: 1rem auto;
+                width: fit-content;
+            }
+
+            .section {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">MindBody Connect</div>
+        <ul class="nav-links">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#problem">Problem</a></li>
+            <li><a href="#solution">Solution</a></li>
+            <li><a href="#impact">Impact</a></li>
+            <li><a href="#contact">Get Involved</a></li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <header>
+            <nav>
+                <div class="logo">MindBody Connect</div>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#problem">Problem</a></li>
+                    <li><a href="#solution">Solution</a></li>
+                    <li><a href="#impact">Impact</a></li>
+                    <li><a href="#contact">Get Involved</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <section id="home" class="hero">
+                <div class="hero-content">
+                    <h1>Understanding the Impact of Mental Health on Physical Health</h1>
+                    <p class="tagline">Promoting holistic well-being through awareness and action</p>
+                    <p>Mental health profoundly influences our physical health. Our platform aims to educate, predict, and support healthier lifestyles by highlighting the mind-body connection.</p>
+                    <a href="#solution" class="cta-button">Learn More</a>
+                    <a href="#contact" class="cta-button cta-secondary">Get Involved</a>
+                </div>
+            </section>
+
+            <section id="problem" class="section problem">
+                <h2>The Mind-Body Challenge</h2>
+                <p style="text-align: center; font-size: 1.2rem; margin-bottom: 3rem; color: #666;">
+                    Mental health issues like stress, anxiety, and depression can lead to serious physical health problems. Yet, awareness and proactive care are often lacking.
+                </p>
+                <div class="health-risks">
+                    <div class="risk-card">
+                        <div class="risk-icon">💔</div>
+                        <h3>Cardiovascular Issues</h3>
+                        <p>Chronic stress and depression increase the risk of heart disease and high blood pressure.</p>
+                    </div>
+                    <div class="risk-card">
+                        <div class="risk-icon">🛌</div>
+                        <h3>Sleep Disorders</h3>
+                        <p>Anxiety and mental strain often disrupt sleep, leading to fatigue and weakened immunity.</p>
+                    </div>
+                    <div class="risk-card">
+                        <div class="risk-icon">🍽️</div>
+                        <h3>Metabolic Problems</h3>
+                        <p>Mental health challenges can affect eating habits, increasing the risk of obesity and diabetes.</p>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <div class="sdg-badge">
+                        🎯 Aligned with UN SDG-3: Good Health & Well-being
+                    </div>
+                </div>
+            </section>
+
+            <section id="solution" class="section solution">
+                <h2>Our Approach</h2>
+                <p style="text-align: center; font-size: 1.2rem; margin-bottom: 3rem; color: #1976d2;">
+                    Empowering individuals and communities to take charge of their mental and physical health.
+                </p>
+                <div class="solution-features">
+                    <div class="feature-card">
+                        <div class="feature-icon">🧠</div>
+                        <h3>Awareness & Education</h3>
+                        <p>Resources and workshops to help people understand the mind-body connection.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3>Personalized Insights</h3>
+                        <p>Data-driven tools to assess mental and physical health risks and suggest improvements.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🤝</div>
+                        <h3>Support Networks</h3>
+                        <p>Connecting individuals with support groups, professionals, and community resources.</p>
+                    </div>
+                </div>
+                <div style="text-align: center; background: linear-gradient(135deg, #ffffff, #f8f9fa); padding: 3rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-top: 3rem;">
+                    <h3 style="color: #1976d2; margin-bottom: 2rem; font-size: 2rem;">Key Benefits</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                        <div style="padding: 1.5rem; background: rgba(25,118,210,0.1); border-radius: 10px;">
+                            <div style="font-size: 2rem; margin-bottom: 1rem;">🌱</div>
+                            <p><strong>Holistic:</strong> Addresses both mental and physical well-being</p>
+                        </div>
+                        <div style="padding: 1.5rem; background: rgba(25,118,210,0.1); border-radius: 10px;">
+                            <div style="font-size: 2rem; margin-bottom: 1rem;">👨‍⚕️</div>
+                            <p><strong>Accessible:</strong> Resources for all ages and backgrounds</p>
+                        </div>
+                        <div style="padding: 1.5rem; background: rgba(25,118,210,0.1); border-radius: 10px;">
+                            <div style="font-size: 2rem; margin-bottom: 1rem;">🔗</div>
+                            <p><strong>Connected:</strong> Builds strong support networks</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="how-it-works" class="section how-it-works">
+                <h2>How It Works</h2>
+                <div class="workflow">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-icon">📝</div>
+                        <h3>Self-Assessment</h3>
+                        <p>Users complete a simple questionnaire to evaluate their mental and physical health.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-icon">📈</div>
+                        <h3>Data Analysis</h3>
+                        <p>Our tools analyze responses to identify risk factors and suggest personalized actions.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-icon">💬</div>
+                        <h3>Guidance & Support</h3>
+                        <p>Receive actionable tips and connect with support resources for ongoing well-being.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-icon">🌟</div>
+                        <h3>Track Progress</h3>
+                        <p>Monitor improvements in mental and physical health over time.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="impact" class="section impact">
+                <h2>Expected Impact</h2>
+                <div class="impact-grid">
+                    <div class="impact-card">
+                        <div class="impact-icon">💪</div>
+                        <h3>Improved Well-being</h3>
+                        <p>Better mental health leads to stronger immunity, more energy, and reduced risk of chronic diseases.</p>
+                    </div>
+                    <div class="impact-card">
+                        <div class="impact-icon">🧬</div>
+                        <h3>Healthier Communities</h3>
+                        <p>Empowered individuals contribute to healthier families, workplaces, and societies.</p>
+                    </div>
+                    <div class="impact-card">
+                        <div class="impact-icon">💡</div>
+                        <h3>Increased Awareness</h3>
+                        <p>Greater understanding of the mind-body link encourages early intervention and prevention.</p>
+                    </div>
+                    <div class="impact-card">
+                        <div class="impact-icon">🤝</div>
+                        <h3>Stronger Support</h3>
+                        <p>Expanded access to mental health resources and community support networks.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="future-scope" class="section future-scope">
+                <h2>Future Scope</h2>
+                <div class="future-grid">
+                    <div class="future-card">
+                        <h3>🌍 Broader Reach</h3>
+                        <p>Expand access to underserved communities and integrate with local health systems.</p>
+                    </div>
+                    <div class="future-card">
+                        <h3>📱 Digital Tools</h3>
+                        <p>Develop mobile apps and online platforms for easier self-assessment and support.</p>
+                    </div>
+                    <div class="future-card">
+                        <h3>🤝 Partnerships</h3>
+                        <p>Collaborate with healthcare providers, NGOs, and governments for greater impact.</p>
+                    </div>
+                    <div class="future-card">
+                        <h3>🔬 Research</h3>
+                        <p>Advance research on the links between mental and physical health for evidence-based solutions.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contact" class="section get-involved">
+                <h2>Get Involved</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 3rem;">
+                    Join us in promoting holistic health. Whether you're a healthcare professional, researcher, or advocate, your involvement matters.
+                </p>
+                <div class="involvement-options">
+                    <div class="option-card">
+                        <h3>👩‍⚕️ Healthcare Professionals</h3>
+                        <p>Partner with us to raise awareness and provide support in your community.</p>
+                    </div>
+                    <div class="option-card">
+                        <h3>👥 Individuals</h3>
+                        <p>Access resources, share your story, and support others on their wellness journey.</p>
+                    </div>
+                    <div class="option-card">
+                        <h3>💝 Donors & Funders</h3>
+                        <p>Support our mission to make mental and physical health resources accessible to all.</p>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3 style="margin-bottom: 2rem;">Contact Us</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Name *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="organization">Organization</label>
+                            <input type="text" id="organization" name="organization">
+                        </div>
+                        <div class="form-group">
+                            <label for="interest">Interest Area *</label>
+                            <select id="interest" name="interest" required>
+                                <option value="">Select your interest...</option>
+                                <option value="partnership">Partnership Opportunities</option>
+                                <option value="funding">Funding & Investment</option>
+                                <option value="research">Research Collaboration</option>
+                                <option value="updates">Updates & Newsletter</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" required placeholder="Tell us about your interest in mental-physical health solutions..."></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 MindBody Connect. Promoting holistic health for all.</p>
+            <p>🌱 Aligned with UN SDG-3: Good Health & Well-being</p>
+        </footer>
+    </div>
+
+    <script>
+        // Sidebar active tab effect
+        document.querySelectorAll('.sidebar .nav-links a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.querySelectorAll('.sidebar .nav-links a').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html> 
